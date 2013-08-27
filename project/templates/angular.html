@@ -1,0 +1,29 @@
+<html lang="en" ng-app>
+<head>
+  <meta charset="utf-8">
+  <title>Angular</title>
+</head>
+<body>
+  <div id="container">
+    Name: <input type="text" ng-model="name" />{{ name }}
+  </div>
+  <div id="body container" ng-controller="RedditLoad">
+    {{ redditData }}
+    <ul>
+      <li ng-repeat="article in redditData" >
+        {{article.data.title}}
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    function RedditLoad($scope,$http){
+      $http.get("http://www.reddit.com/.json").success(
+          function(response){
+            $scope.redditData = response.data.children;
+          });
+    }
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+</body>
+</html>

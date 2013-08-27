@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block content_pane %}
+<style>
+#controls{
+	margin:auto;
+	width:80%;
+}
+.btnctrl{
+	list-style-type: none;
+	height: 25px;
+	float:left;
+	padding-left: 10px;
+	width: 150px;
+	border-radius: 5px;
+	border: 1px solid white;
+	background-color: black;
+	text-align: center;
+	margin:5px;
+	color:white;
+	padding-top: 5px;
+}
+#field{
+	margin:auto;
+	width:80%;
+}
+.dots{
+	height:6px;
+	width:6px;
+	border-radius: 3px;
+	position:absolute;
+	background-color: red;
+	border:1px solid black;
+}
+#info {
+	color:white;
+	clear:both;
+	margin:auto;
+	width:80%;
+}
+.info_{
+	clear:both;
+}
+#drill_name{
+	color:white;
+	width:100%;
+	background-color: black;
+	height:30px;
+	padding-left:20px;
+}
+</style>
+{% block header %}{% endblock %}
+
+<div id="controls">
+	<div id="drill_name">Drill Name: {{drill.name}}</div>
+	<ul>
+		<li class="btnctrl"><a class="buttons" href="/prev_set/{{drill.id}}">Previous Set</a></li>
+		<li class="btnctrl">Current Set: {{set}}</li>
+		<li class="btnctrl"><a class="buttons" href="/next_set/{{drill.id}}">Next Set</a></li>
+	</ul>
+</div>
+<br />
+<div id="info">
+	{% ifequal drill.location_1 None %}
+	<div class="info_">Please set your location by standing on the 50 yd sideline(Home) and pressing the "Set Location 1" button.</div>
+	<li class="btnctrl" onclick="set_loc1()"><a class="buttons" href="#">Set Locatation 1</a></li>
+	{% endifequal %}
+	{% ifequal drill.location_2 None %}
+	<div class="info_">Please set your location by standing on the 50 yd sideline(Away) and pressing the "Set Location 1" button. This lets the application sync with the Students.</div>
+	<li class="btnctrl" onclick="set_loc2()"><a class="buttons" href="#">Set Locatation 2</a></li>
+	<br />
+	{% endifequal %}
+	{% ifequal drill.location_1 '' %}
+	<div class="info_">Please set your location by standing on the 50 yd sideline(Home) and pressing the "Set Location 1" button.</div>
+	<li class="btnctrl" onclick="set_loc1()">Set Locatation 1</li>
+	{% endifequal %}
+	{% ifequal drill.location_2 '' %}
+	<div class="info_">Please set your location by standing on the 50 yd sideline(Away) and pressing the "Set Location 1" button. This lets the application sync with the Students.</div>
+	<li class="btnctrl" onclick="set_loc2()"><a class="buttons" href="#">Set Locatation 2</a></li>
+	<br />
+	{% endifequal %}
+</div>
+<div id="field" style="position:relative;clear:both">
+	<img src="/static/img/field.jpg" width="800" height="450"/>
+</div>
+<script>
+$(document).ready(function () {
+{% for loc in loc_list %}
+	var left = {{loc.rel_x}}*(7.95)+400;
+	var top = 445-{{loc.rel_y}}*(450/53.3);
+	$("#field").append("<div class='dots' style='left:"+left+";top:"+top+"'</div>");
+{% endfor %}
+});
+function set_loc1(){
+	if (navigator.geolocation){
+    	navigator.geolocation.getCurrentPosition(setPosition1,err,{timeout:5000});
+    }
+}
+function err(error){
+	    switch (error.code) {
+
+        case 0:
+
+            alert("Something went wrong: " + error.message);
+
+            break;
+
+        case 1:
+
+            alert("You denied permission to this page to retrieve a location.");
+
+            break;
+
+        case 2:
+
+            alert("The browser was unable to determine a location: " + error.message);
+
+            break;
+
+        case 3:
+
+            alert("The browser timed out before retrieving the location.");
+
+            break;
+
+    }
+}
+function setPosition1(position){
+	document.location.href='/set_loc/?drill={{drill.id}}&lat='+position.coords.latitude+'&long='+position.coords.longitude+'&loc_num=1';
+}
+function set_loc2(){
+	if (navigator.geolocation){
+    		navigator.geolocation.getCurrentPosition(setPosition2);
+    }
+	else{alert("Geolocation is not supported by this browser.");}
+}
+function setPosition2(position){
+	document.location.href='/set_loc/?drill={{drill.id}}&lat='+position.coords.latitude+'&long='+position.coords.longitude+'&loc_num=2';
+}
+</script>
+{% endblock %}

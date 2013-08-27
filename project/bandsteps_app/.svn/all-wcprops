@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/kmcbrayer/!svn/ver/92/bandsteps_app
+END
+admin.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/kmcbrayer/!svn/ver/47/bandsteps_app/admin.py
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/kmcbrayer/!svn/ver/92/bandsteps_app/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/kmcbrayer/!svn/ver/11/bandsteps_app/__init__.py
+END
+tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/kmcbrayer/!svn/ver/11/bandsteps_app/tests.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/kmcbrayer/!svn/ver/63/bandsteps_app/models.py
+END
+forms.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/kmcbrayer/!svn/ver/40/bandsteps_app/forms.py
+END

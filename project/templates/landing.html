@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content_pane %}
+{% if is_tablet %}
+<style type="text/css">
+#header{
+	min-device-width: 768px;
+}
+</style>
+{% endif %}
+<style type="text/css">
+	#popup_container{
+		display: none;
+	}
+	#popup_container a{
+		margin:5px;
+		float:left;
+	}
+	#popup_container h3{
+		margin:20px;
+		text-align: center;
+	}
+	a{
+		float: left;
+		height: 60px;
+		width: 150px;
+		border: solid black 1px;
+		border-radius: 15px;
+		margin:10px;
+		text-align: center;
+		padding-top: 40px;
+		background-color:#3D3D3D;
+
+	}
+	ul{
+		width:80%;
+		margin:auto;
+	}
+	#popup_container{
+		position:absolute;
+		margin-top: 50px;
+		margin-left: 100px;
+		min-width: 450px;
+		max-width: 900px;
+		min-height: 200px;
+		background-color: black;
+		border: 1px solid white;
+		border-radius: 20px;
+		color: white;
+	}
+	#exit{
+		border-radius: 5px;
+		border:1px solid white;
+		
+	}
+</style>
+<div id="user_menu">
+	<ul>
+		{% if not is_tablet %}
+		<li><a href="/new_drill/">Create Drill</a></li>
+		{% endif %}
+		<li id="drills"><a href="#">Begin Drill</a></li><!--on click dropdown for tablets??-->
+			<div id="popup_container">
+				<h3> Select a drill to begin</h3>
+				<ul id="popup_list">
+					{% for drill in drills %}
+					<li id="list_node"><a href="/drill/{{drill.id}}/">{{drill.name}}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+		<li><a href="/logout/">Log Out</a>
+	</ul>
+</div>
+<div id='drill_list'>
+	<!-- if drill_list == 0: show "welcome: to make a drill click ..."; else: for drill in drill_list: ...-->
+
+</div>
+<script>
+var clicked = false;
+$('#drills').click(function(){
+	if (!clicked){
+		$('#popup_container').show();
+		clicked = true;
+	}
+	else{
+		$('#popup_container').hide();
+		clicked=false;
+	}
+	
+})
+</script>
+{% endblock %}

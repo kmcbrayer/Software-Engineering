@@ -1,0 +1,86 @@
+<!--templates/base.html-->
+
+<html>
+<head>
+	<title>
+		{% block title %}BandSteps{% endblock %}
+	</title>
+	{% block meta %}
+	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script src="/static/js/geoPosition.js"></script>
+	{% endblock %}
+	{% block style %}
+	<style>
+		body{
+			padding:0;
+			margin:0;
+			background-color: #16161A;
+			font-family: helvetica;
+		}
+		a{
+			color:white;
+			text-decoration: none;
+		}
+
+		#header{
+			width:990px;
+			height:90px;
+			margin:auto;
+			text-align:center;
+			background-color:black;
+			color:white;
+			background-image:url("/static/img/mesh2.jpg");
+			font-family: helvetica;
+			font-weight: bold;
+		}
+		.band_steps{
+			font-size: 80px;
+			margin-top: 5px;
+		}
+		.com{
+			color:#079110;
+			font-size: 80px;
+		}
+		#content_pane{
+			margin:auto;
+			height:100%;
+			width:990px;
+		}
+		#page{
+			background-color:#2E2E2E;
+			width:990px;
+			margin:auto;
+			border-left:white 1px solid;
+			border-right:white 1px solid;
+		}
+		ul{
+			list-style-type: none;
+		}
+	</style>
+	{% endblock %}
+
+</head>
+<body>
+{% block page %}
+	<div id="page">
+		{% block header %}
+		<div id="header">		    
+			<span class="band_steps">BandSteps</span><span class="com">.com</span>								
+		</div>
+		{% endblock %}
+			<div id="sidebar">
+			    <ul id="navbar">
+			    </ul>
+				{% block sidebar %}
+				
+				{% endblock %}
+			</div>
+			<div id="content_pane">
+				{% block content_pane %}
+				
+				{% endblock %}
+			</div>
+	</div>
+{% endblock %}
+</body>
+</html>

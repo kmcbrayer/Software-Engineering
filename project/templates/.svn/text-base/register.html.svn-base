@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content_pane %}
+<style>
+	#login_form{
+		width:600;
+		margin:auto;
+		border-radius:15px;
+		border: black 1px solid;
+		background-color:#3D3D3D;
+		padding:20px;
+		color: white;
+		font-size:30px;
+		text-align:center;
+	}
+	#submit{
+		height:30px;
+		width:80px;
+		font-size:15px;
+	}
+	#errors{
+		color:red;
+	}
+	.helptext{
+		display: none;
+	}
+</style>
+
+<div id="login_form">
+	<p class="norm">To register please fill out the information below</p>
+	<p id="errors">{% if errors %}{{errors}}{% endif %}</p>
+	<form method="post" id="register" action="/register/">{% csrf_token %}
+		{{uform.as_p}}
+		<input id="submit" type="submit" value="Register" />
+	</form>
+	
+</div>
+{% endblock %}

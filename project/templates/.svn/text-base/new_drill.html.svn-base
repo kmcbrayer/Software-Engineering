@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content_pane %}
+<style>
+#login_form{
+		width:400px;
+		margin:auto;
+		border-radius:15px;
+		border: black 1px solid;
+		background-color:#3D3D3D;
+		padding:20px;
+		color: white;
+		font-size:30px;
+		text-align:center;
+	}
+</style>
+
+{% if errors %}
+<div id="errors">
+	{{errors}}
+</div>
+{% endif %}
+
+<div id="login_form">
+	Create a new Drill
+	<form enctype="multipart/form-data" action="/new_drill/" method="post">
+		{% csrf_token %}
+		{{form.as_p}}
+		<p><label for="id_doc">Doc:</label> <input type="file" name="file" id="id_doc" /></p>
+		<input id="submit" onclick="loading()" type="submit" value="Create" />
+	</form>
+</div>
+<script>
+function loading(){
+	$('#login_form').append("<div>Loading Please Wait</div>");
+}
+</script>
+{% endblock %}
